@@ -131,7 +131,7 @@ export const jobRouter = new OpenAPIHono()
       },
     }),
     async (c) => {
-      const body = await c.req.json();
+      const body = c.req.valid("json");
       const newJob = await db.orm.public.Job.create({
         feedbackText: body.feedbackText,
         source: body.source,
@@ -146,7 +146,6 @@ export const jobRouter = new OpenAPIHono()
           feedbackText: newJob.feedbackText,
           source: newJob.source as "appstore" | "playstore" | "website",
           userTier: newJob.userTier as "free" | "premium",
-          status: "PENDING" as const,
         },
         201
       );

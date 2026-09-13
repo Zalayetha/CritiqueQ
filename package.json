@@ -27,12 +27,12 @@
     "bullmq": "^6.3.4",
     "dotenv": "^17.4.2",
     "hono": "^4.13.7",
-    "ioredis": "^6.0.0",
     "temporal-polyfill": "^1.0.5"
   },
   "devDependencies": {
     "@prisma/cli-engine": "0.2.3",
     "@types/node": "^26.1.1",
+    "concurrently": "^10.0.5",
     "prisma": "8.0.0-rc.10",
     "tsx": "^4.23.0",
     "typescript": "^7.0.2"

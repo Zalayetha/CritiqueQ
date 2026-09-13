@@ -68,16 +68,19 @@ pnpm prisma db update
 
 ### Step 5: Start the Application
 
-You will need **two terminal tabs**:
+You can start both the API server and queue worker concurrently in a single command:
 
-#### Terminal 1 — Start the API Server
 ```bash
-pnpm dev
+pnpm dev:all
 ```
-The server will start on [http://localhost:3000](http://localhost:3000).
 
-#### Terminal 2 — Start the Background Queue Worker
+Or run them individually in separate terminals:
+
 ```bash
+# Terminal 1: API Server (http://localhost:3000)
+pnpm dev
+
+# Terminal 2: Background Queue Worker
 pnpm worker:dev
 ```
 
@@ -85,11 +88,15 @@ pnpm worker:dev
 
 ## 📖 API Documentation & Endpoints
 
+Interactive OpenAPI Reference UI is available at **[http://localhost:3000/reference](http://localhost:3000/reference)**.
+
 | Method | Endpoint | Description |
 |---|---|---|
+| `GET` | `/reference` | Interactive Scalar API documentation |
+| `GET` | `/doc` | OpenAPI 3.0 spec JSON |
 | `GET` | `/job` | List all feedback analysis jobs |
 | `POST` | `/job` | Submit a new feedback job for AI analysis |
-| `GET` | `/job/:id` | Get job status and the generated analysis result |
+| `GET` | `/job/:id` | Get job detail and analysis result |
 
 ### Example: Submit Feedback Job
 

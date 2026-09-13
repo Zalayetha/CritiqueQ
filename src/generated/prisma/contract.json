@@ -296,7 +296,13 @@
                   "id"
                 ]
               },
-              "uniques": []
+              "uniques": [
+                {
+                  "columns": [
+                    "jobId"
+                  ]
+                }
+              ]
             }
           }
         },
@@ -304,7 +310,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "762031f55faa3f2a6fe2efcfc3fe74bb621b4c84fce97d396c9e2a28269c6bca"
+    "storageHash": "92f15355cdd6198076c18249fa046db735f4018afa9830da7a9d1502ef204d34"
   },
   "execution": {
     "executionHash": "2d377016ed7b4667e9b7df178af156b6af4e1032592d89d4c1030b0cce080e59",

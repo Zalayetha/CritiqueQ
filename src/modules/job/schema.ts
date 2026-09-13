@@ -10,9 +10,6 @@ export const CreateJobSchema = z.object({
   userTier: z.enum(["free", "premium"]).openapi({
     example: "premium"
   }),
-  status: z.enum(["PENDING", "COMPLETED"]).optional().openapi({
-    example: "PENDING"
-  }),
 }).openapi("CreateJobSchema")
 
 export const JobItemSchema = z.object({
