@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "worker:dev": "tsx watch src/worker/worker.ts",
+    "dev:all": "concurrently -n \"api,worker\" -c \"blue,green\" \"tsx watch src/index.ts\" \"tsx watch src/worker/worker.ts\"",
     "build": "tsc",
     "start": "node dist/index.js",
     "contract:emit": "prisma contract emit",
