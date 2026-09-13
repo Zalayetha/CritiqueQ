@@ -13,33 +13,46 @@ export const worker = new Worker(
       throw new Error("Job ID is required");
     }
 
-    const jobData = await db.orm.public.Job.where((j) => j.id.eq(jobid)).first();
-    if (!jobData) {
-      throw new Error(`Job with ID ${jobid} not found`);
+    try {
+      const jobData = await db.orm.public.Job.where((j) => j.id.eq(jobid)).first();
+      if (!jobData) {
+        throw new Error(`Job with ID ${jobid} not found`);
+      }
+
+      const analysis = await generateFeedbackAnalysis({
+        feedbackText: jobData.feedbackText,
+        source: jobData.source ?? undefined,
+        userTier: jobData.userTier ?? undefined,
+      });
+
+      // Save analysis result to Database
+      await db.orm.public.JobResult.create({
+        jobId: jobid,
+        sentiment: analysis.sentiment,
+        category: analysis.category,
+        summary: analysis.summary,
+        actionItem: analysis.actionItem,
+        urgencyScore: analysis.urgencyScore,
+      });
+
+      // Update Job status to COMPLETED
+      await db.orm.public.Job.where((j) => j.id.eq(jobid)).update({
+        status: "COMPLETED",
+      });
+
+      console.log(`Job ${jobid} successfully processed and marked as COMPLETED.`);
+    } catch (err) {
+      console.error(`Job ${jobid} failed:`, err);
+      // Mark as FAILED in Database
+      try {
+        await db.orm.public.Job.where((j) => j.id.eq(jobid)).update({
+          status: "FAILED",
+        });
+      } catch (dbErr) {
+        console.error(`Failed to update job status to FAILED:`, dbErr);
+      }
+      throw err;
     }
-
-    const analysis = await generateFeedbackAnalysis({
-      feedbackText: jobData.feedbackText,
-      source: jobData.source ?? undefined,
-      userTier: jobData.userTier ?? undefined,
-    });
-
-    // Save analysis result to Database
-    await db.orm.public.JobResult.create({
-      jobId: jobid,
-      sentiment: analysis.sentiment,
-      category: analysis.category,
-      summary: analysis.summary,
-      actionItem: analysis.actionItem,
-      urgencyScore: analysis.urgencyScore,
-    });
-
-    // Update Job status to COMPLETED
-    await db.orm.public.Job.where((j) => j.id.eq(jobid)).update({
-      status: "COMPLETED",
-    });
-
-    console.log(`Job ${jobid} successfully processed and marked as COMPLETED.`);
   },
   {
     connection: workerConnection,

@@ -33,7 +33,7 @@ export const jobRouter = new OpenAPIHono()
             feedbackText: j.feedbackText,
             source: (j.source as "appstore" | "playstore" | "website") ?? null,
             userTier: (j.userTier as "free" | "premium") ?? null,
-            status: (j.status as "PENDING" | "COMPLETED") ?? "PENDING",
+            status: (j.status as "PENDING" | "COMPLETED" | "FAILED") ?? "PENDING",
           })),
         },
         200
@@ -86,7 +86,7 @@ export const jobRouter = new OpenAPIHono()
             feedbackText: job.feedbackText,
             source: (job.source as "appstore" | "playstore" | "website") ?? null,
             userTier: (job.userTier as "free" | "premium") ?? null,
-            status: (job.status as "PENDING" | "COMPLETED") ?? "PENDING",
+            status: (job.status as "PENDING" | "COMPLETED" | "FAILED") ?? "PENDING",
           },
           result: jobResult
             ? {
@@ -139,7 +139,13 @@ export const jobRouter = new OpenAPIHono()
         status: "PENDING",
       });
 
-      await queue.add("generate-feedback-analysis", newJob);
+      await queue.add("generate-feedback-analysis", newJob, {
+        attempts: 3,
+        backoff: {
+          type: "exponential",
+          delay: 1000,
+        },
+      });
 
       return c.json(
         {
@@ -147,7 +153,7 @@ export const jobRouter = new OpenAPIHono()
           feedbackText: newJob.feedbackText,
           source: (newJob.source as "appstore" | "playstore" | "website") ?? null,
           userTier: (newJob.userTier as "free" | "premium") ?? null,
-          status: (newJob.status as "PENDING" | "COMPLETED") ?? "PENDING",
+          status: "PENDING" as const,
         },
         201
       );

@@ -23,7 +23,7 @@ export const JobItemSchema = z.object({
   userTier: z.enum(["free", "premium"]).nullable().openapi({
     example: "premium"
   }),
-  status: z.enum(["PENDING", "COMPLETED"]).openapi({
+  status: z.enum(["PENDING", "COMPLETED", "FAILED"]).openapi({
     example: "PENDING"
   }),
 }).openapi("JobItemSchema")
