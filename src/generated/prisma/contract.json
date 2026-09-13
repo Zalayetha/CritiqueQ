@@ -54,13 +54,6 @@
                   "kind": "scalar"
                 }
               },
-              "updatedAt": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/timestamptz-string@1",
-                  "kind": "scalar"
-                }
-              },
               "userTier": {
                 "nullable": true,
                 "type": {
@@ -86,9 +79,6 @@
                 },
                 "status": {
                   "column": "status"
-                },
-                "updatedAt": {
-                  "column": "updatedAt"
                 },
                 "userTier": {
                   "column": "userTier"
@@ -149,13 +139,6 @@
                   "kind": "scalar"
                 }
               },
-              "updatedAt": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/timestamptz-string@1",
-                  "kind": "scalar"
-                }
-              },
               "urgencyScore": {
                 "nullable": false,
                 "type": {
@@ -187,9 +170,6 @@
                 },
                 "summary": {
                   "column": "summary"
-                },
-                "updatedAt": {
-                  "column": "updatedAt"
                 },
                 "urgencyScore": {
                   "column": "urgencyScore"
@@ -241,11 +221,6 @@
                     "value": "PENDING"
                   },
                   "nativeType": "text",
-                  "nullable": false
-                },
-                "updatedAt": {
-                  "codecId": "pg/timestamptz-string@1",
-                  "nativeType": "timestamptz",
                   "nullable": false
                 },
                 "userTier": {
@@ -304,11 +279,6 @@
                   "nativeType": "text",
                   "nullable": false
                 },
-                "updatedAt": {
-                  "codecId": "pg/timestamptz-string@1",
-                  "nativeType": "timestamptz",
-                  "nullable": false
-                },
                 "urgencyScore": {
                   "codecId": "pg/int4@1",
                   "default": {
@@ -334,10 +304,10 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "c35d156b4d6aa87dbe5473b537b44f710019c586a568cb1ff912843122ff692d"
+    "storageHash": "762031f55faa3f2a6fe2efcfc3fe74bb621b4c84fce97d396c9e2a28269c6bca"
   },
   "execution": {
-    "executionHash": "362ac0e4996287d38dee419f65eef2c21a35c33ac996c9dc3c6ef4c2110e4268",
+    "executionHash": "2d377016ed7b4667e9b7df178af156b6af4e1032592d89d4c1030b0cce080e59",
     "mutations": {
       "defaults": [
         {
@@ -353,41 +323,11 @@
         },
         {
           "onCreate": {
-            "id": "timestampNow",
-            "kind": "generator"
-          },
-          "onUpdate": {
-            "id": "timestampNow",
-            "kind": "generator"
-          },
-          "ref": {
-            "column": "updatedAt",
-            "namespace": "public",
-            "table": "job"
-          }
-        },
-        {
-          "onCreate": {
             "id": "uuidv4",
             "kind": "generator"
           },
           "ref": {
             "column": "id",
-            "namespace": "public",
-            "table": "jobResult"
-          }
-        },
-        {
-          "onCreate": {
-            "id": "timestampNow",
-            "kind": "generator"
-          },
-          "onUpdate": {
-            "id": "timestampNow",
-            "kind": "generator"
-          },
-          "ref": {
-            "column": "updatedAt",
             "namespace": "public",
             "table": "jobResult"
           }

@@ -1,11 +1,9 @@
 import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
+import { OpenAPIHono } from '@hono/zod-openapi'
+import { jobRouter } from './modules/job/router'
 
-const app = new Hono()
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+const app = new OpenAPIHono().route('/job', jobRouter)
 
 serve({
   fetch: app.fetch,

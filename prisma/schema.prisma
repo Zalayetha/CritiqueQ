@@ -7,17 +7,15 @@ model Job{
   userTier      String?     // free, premium, etc
   status        String      @default("PENDING")
   createdAt     DateTime    @default(now())
-  updatedAt     temporal.updatedAtString()
 }
 
 model JobResult{
   id            String      @id @default(uuid())
   jobId         String
   sentiment     String      // Positive, Negative, Neutral
-  category      String      // BUG_REPORT, FEATURE_REQUEST, PRICING, UX
+  category      String      // BUG_REPORT, FEATURE_REQUEST, PRICING, OTHER
   summary       String      // Concise 1-2 sentences AI Summary
   actionItem    String      // Recommended next step for product/engineering team
   urgencyScore  Int         @default(1) // 1 to 5, with 5 being the most urgent
   createdAt     DateTime    @default(now())
-  updatedAt     temporal.updatedAtString()
 }

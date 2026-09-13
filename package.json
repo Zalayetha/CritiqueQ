@@ -2,7 +2,7 @@
   "name": "critiqueq",
   "type": "module",
   "devEngines": {
-    "packageManager":{
+    "packageManager": {
       "name": "pnpm",
       "version": "11.24.0",
       "onFail": "download"
@@ -11,6 +11,7 @@
   "packageManager": "pnpm@11.24.0",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "worker:dev": "tsx watch src/worker/worker.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "contract:emit": "prisma contract emit",
@@ -23,8 +24,11 @@
     "@hono/zod-openapi": "^1.6.3",
     "@prisma/orm-postgres": "8.0.0-rc.9",
     "@scalar/hono-api-reference": "^0.12.1",
+    "bullmq": "^6.3.4",
     "dotenv": "^17.4.2",
-    "hono": "^4.13.7"
+    "hono": "^4.13.7",
+    "ioredis": "^6.0.0",
+    "temporal-polyfill": "^1.0.5"
   },
   "devDependencies": {
     "@prisma/cli-engine": "0.2.3",
