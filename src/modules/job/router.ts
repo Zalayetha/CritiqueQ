@@ -121,7 +121,7 @@ export const jobRouter = new OpenAPIHono()
         },
       },
       responses: {
-        201: {
+        202: {
           description: "Successfully created job",
           content: {
             "application/json": { schema: JobItemSchema },
@@ -155,7 +155,7 @@ export const jobRouter = new OpenAPIHono()
           userTier: (newJob.userTier as "free" | "premium") ?? null,
           status: "PENDING" as const,
         },
-        201
+        202
       );
     }
   );
