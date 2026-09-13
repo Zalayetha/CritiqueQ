@@ -88,11 +88,11 @@ pnpm worker:dev
 
 ## 📖 API Documentation & Endpoints
 
-Interactive OpenAPI Reference UI is available at **[http://localhost:3000/reference](http://localhost:3000/reference)**.
+Interactive OpenAPI Reference UI is available at **[http://localhost:3000/scalar](http://localhost:3000/scalar)**.
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/reference` | Interactive Scalar API documentation |
+| `GET` | `/scalar` | Interactive Scalar API documentation |
 | `GET` | `/doc` | OpenAPI 3.0 spec JSON |
 | `GET` | `/jobs` | List all feedback analysis jobs |
 | `POST` | `/jobs` | Submit a new feedback job for AI analysis |

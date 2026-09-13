@@ -1,6 +1,6 @@
 import { serve } from '@hono/node-server'
 import { OpenAPIHono } from '@hono/zod-openapi'
-import { apiReference } from '@scalar/hono-api-reference'
+import { Scalar } from '@scalar/hono-api-reference'
 import { jobRouter } from './modules/job/router'
 
 const app = new OpenAPIHono()
@@ -14,11 +14,10 @@ const app = new OpenAPIHono()
     },
   })
   .get(
-    '/reference',
-    apiReference({
-      spec: {
-        url: '/doc',
-      },
+    '/scalar',
+    Scalar({
+      url: '/doc',
+      pageTitle: 'CritiqueQ API Reference',
       theme: 'saturn',
     }),
   );
@@ -30,6 +29,6 @@ serve(
   },
   (info) => {
     console.log(`Server is running on http://localhost:${info.port}`)
-    console.log(`API Docs available at http://localhost:${info.port}/reference`)
+    console.log(`API Docs available at http://localhost:${info.port}/scalar`)
   }
 )
