@@ -94,14 +94,14 @@ Interactive OpenAPI Reference UI is available at **[http://localhost:3000/refere
 |---|---|---|
 | `GET` | `/reference` | Interactive Scalar API documentation |
 | `GET` | `/doc` | OpenAPI 3.0 spec JSON |
-| `GET` | `/job` | List all feedback analysis jobs |
-| `POST` | `/job` | Submit a new feedback job for AI analysis |
-| `GET` | `/job/:id` | Get job detail and analysis result |
+| `GET` | `/jobs` | List all feedback analysis jobs |
+| `POST` | `/jobs` | Submit a new feedback job for AI analysis |
+| `GET` | `/jobs/:id` | Get job detail and analysis result |
 
 ### Example: Submit Feedback Job
 
 ```bash
-curl -X POST http://localhost:3000/job \
+curl -X POST http://localhost:3000/jobs \
   -H "Content-Type: application/json" \
   -d '{
     "feedbackText": "The app crashes every time I try to export my analytics report on iOS 18.",

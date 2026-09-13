@@ -1,7 +1,7 @@
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import { db } from "../../utils/db";
 import { queue } from "../../worker/queue";
-import { CreateJobSchema, GetJobResponseSchema, ListJobSchema } from "./schema";
+import { CreateJobSchema, GetJobResponseSchema, JobItemSchema, ListJobSchema } from "./schema";
 
 const ErrorResponseSchema = z.object({
   error: z.string(),
@@ -124,7 +124,7 @@ export const jobRouter = new OpenAPIHono()
         201: {
           description: "Successfully created job",
           content: {
-            "application/json": { schema: CreateJobSchema },
+            "application/json": { schema: JobItemSchema },
           },
         },
         400: { description: "Invalid or missing JSON request body" },
@@ -143,9 +143,11 @@ export const jobRouter = new OpenAPIHono()
 
       return c.json(
         {
+          id: newJob.id,
           feedbackText: newJob.feedbackText,
-          source: newJob.source as "appstore" | "playstore" | "website",
-          userTier: newJob.userTier as "free" | "premium",
+          source: (newJob.source as "appstore" | "playstore" | "website") ?? null,
+          userTier: (newJob.userTier as "free" | "premium") ?? null,
+          status: (newJob.status as "PENDING" | "COMPLETED") ?? "PENDING",
         },
         201
       );

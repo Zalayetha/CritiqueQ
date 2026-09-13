@@ -4,27 +4,24 @@ import { apiReference } from '@scalar/hono-api-reference'
 import { jobRouter } from './modules/job/router'
 
 const app = new OpenAPIHono()
-
-app.route('/job', jobRouter)
-
-app.doc('/doc', {
-  openapi: '3.0.0',
-  info: {
-    title: 'CritiqueQ API',
-    version: '1.0.0',
-    description: 'AI-powered feedback analysis and triage service',
-  },
-})
-
-app.get(
-  '/reference',
-  apiReference({
-    spec: {
-      url: '/doc',
+  .route('/jobs', jobRouter)
+  .doc('/doc', {
+    openapi: '3.0.0',
+    info: {
+      title: 'CritiqueQ API',
+      version: '1.0.0',
+      description: 'AI-powered feedback analysis and triage service',
     },
-    theme: 'saturn',
   })
-)
+  .get(
+    '/reference',
+    apiReference({
+      spec: {
+        url: '/doc',
+      },
+      theme: 'saturn',
+    }),
+  );
 
 serve(
   {
